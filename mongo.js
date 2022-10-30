@@ -1,11 +1,13 @@
 const mongoose = require("mongoose");
 
-const { MONGODB_URL, MONGODB_URL_TEST, NODE_ENV } = process.env;
-const url = NODE_ENV == "test" ? MONGODB_URL_TEST : MONGODB_URL;
+// const { MONGODB_URL, MONGODB_URL_TEST, NODE_ENV } = process.env;
+// const url = NODE_ENV == "test" ? MONGODB_URL_TEST : MONGODB_URL;
 
 const conexionBD = async () => {
   try {
-    await mongoose.connect(url);
+    await mongoose.connect(
+      "mongodb+srv://willCh:69349293will@cluster0.9hodb69.mongodb.net/practica?retryWrites=true&w=majority"
+    );
     console.log("se ha conectado a BASE DE DATOS");
   } catch (err) {
     console.log(err);
