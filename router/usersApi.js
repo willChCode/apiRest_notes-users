@@ -20,7 +20,10 @@ usersR.get("/", async (req, res) => {
 usersR.post("/", async (req, res, next) => {
   try {
     const { name, username, password } = req.body;
-    const newUser = new User({ name, username, passwordHash: password });
+    //hasheando
+    const passwordHash = await bcrypt.hash(password, 10);
+    // console.log(passwordHash);
+    const newUser = new User({ name, username, passwordHash });
     const data = await newUser.save();
     res.status(201).json(data);
   } catch (err) {

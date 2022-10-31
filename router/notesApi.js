@@ -22,34 +22,25 @@ notesR.post("/", async (req, res, next) => {
   const authorization = req.get("authorization"); //enviamos la cabecera
   console.log("_________AUTHORIZATION___________");
   console.log(authorization);
-  //aqui le decimos si existe la autorizacion y la autorizacion empieza con bearer hacemos la condicion
+
   //toLowerCase devuelve todo en minuscula y el startsWith inidica si una cadena de texto comienza con los
   //caracteres de una cadena ce texto concreta
   let token = null;
   if (authorization && authorization.toLowerCase().startsWith("bearer")) {
-    // substring devuelve una cadena de texto basado en la posicion inicial especificada
-    //en este caso nos sirve para indicarle que el token empieza desde la posicion 7 porque antes de eso tenemos informacion de la cabecera cosa que no queremos que se guarde en el token de la cabecera
     token = authorization.substring(7);
   }
-  console.log(token); //vemos el token ya quitando el Bearer y empezando desde la posicion 7
-  //descodificando la informacion del token y verificamos el token
-  //tuvimmos un error del verify => jwt must be provided
-  //SOLUCION POR MIENTRAS - estudiarlo que hay oro en esta resolucion de error
-  // let decodedToken = {}; //como en el decode una vez decodificado obtenemso la info en un objeto por eso pusimo en un {} para solucionar el error
+  console.log(token);
   let decodedToken = {};
   try {
     decodedToken = jwt.verify(token, process.env.JWT_SECRET);
   } catch (err) {
     return next(err);
   }
-
+  console.log("______________");
   console.log(decodedToken); //nos muestra el toquen ya desencriptado y verificado
   const { id: userId } = decodedToken;
   console.log(userId);
 
-  //hacemos una condicional de si no existe el token o no esta descodificado no tienes acceso
-  //NOTITAAAAA: todo funca bien solo que ahora peta por que no encuentra el userId del req, lo que debemos hacer es pasarle desde el token
-  //porque le dimo sdatos de informacion del usuario que se logeo asi que el sera que haga las notas
   if (!token || !decodedToken.id) {
     return res
       .status(401)

@@ -5,18 +5,18 @@ const jwt = require("jsonwebtoken");
 
 loginR.post("/", async (req, res) => {
   const { username, password } = req.body;
-  //buscamos el usuario en nuestra base de datos
+
   const userDatos = await User.findOne({ username });
-  // console.log(userDatos.username); //visualizamos lo que encontro
-  //guardamos en una constante el operador ternario con const, condiconla, true,false
+  // console.log(password);
+  // console.log(userDatos.passwordHash);
+  const respuesta = await bcrypt.compare(password, userDatos.passwordHash);
+  console.log(respuesta);
+
   const passwordCorrect =
-    userDatos === null
-      ? false
-      : //comparamos el password del req.body con el password hasheado de la Base deDAtos
-        await bcrypt.compare(password, userDatos.passwordHash); //esto responde con un TRUE si es correcto
-  //condicional para darle mensaje si hubo algun fallo en la autentificacion
-  //si el password no es correcto
-  //esto nos sirve para tener mas seguridad en el login pa no darle pista cual es el que falla si el username o el password
+    userDatos !== null
+      ? await bcrypt.compare(password, userDatos.passwordHash)
+      : false;
+
   // console.log(passwordCorrect); //true o false
   if (!(userDatos && passwordCorrect)) {
     return res.status(401).json({

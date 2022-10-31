@@ -25,19 +25,19 @@ const userSchema = new Schema({
   ],
 });
 //usamos un hook para que antes de guardar algo ejecute esta funcion
-userSchema.pre("save", async function (next) {
-  try {
-    const rounds = 10; // What you want number for round paasword
-    //con el this.paswword.Hash nos referimos al passwordHash de la base de datos
-    const hash = await bcrypt.hash(this.passwordHash, rounds);
-    console.log(
-      "se acaba de encriptar la constraeña antes de guardar los datos :)"
-    );
-    this.passwordHash = hash;
-  } catch (err) {
-    next(err);
-  }
-});
+// userSchema.pre("save", async function (next) {
+//   try {
+//     const rounds = 10;
+
+//     const hash = await bcrypt.hash(this.passwordHash, rounds);
+//     console.log(
+//       "se acaba de encriptar la constraeña antes de guardar los datos :)"
+//     );
+//     this.passwordHash = hash;
+//   } catch (err) {
+//     next(err);
+//   }
+// });
 
 //configuracion para el backend sin modificar la base de datos
 //NOTA.- olvido de uso, recurri a un ejemplo
