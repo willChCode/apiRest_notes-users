@@ -1,7 +1,7 @@
 {
   "name": "tareabackend",
   "version": "1.0.0",
-  "description": "",
+  "description": "SERVIDOR API REST - notes and users",
   "main": "index.js",
   "scripts": {
     "helper": "nodemon test/helper.js",
@@ -35,5 +35,16 @@
   },
   "jest": {
     "testEnvironment": "node"
-  }
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/willChCode/apiRest_notes-users.git"
+  },
+  "bugs": {
+    "url": "https://github.com/willChCode/apiRest_notes-users/issues"
+  },
+  "homepage": "https://github.com/willChCode/apiRest_notes-users#readme"
 }
