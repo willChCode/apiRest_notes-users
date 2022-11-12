@@ -8,7 +8,8 @@
     "start": "cross-env NODE_ENV=production node index.js",
     "dev": "cross-env NODE_ENV=development nodemon index.js",
     "test": "cross-env NODE_ENV=test PORT=1213 jest  --detectOpenHandles --verbose test/users.test.js",
-    "test:watch": "npm run test -- --watchAll"
+    "test:watch": "npm run test -- --watchAll",
+    "lint": "eslint ."
   },
   "author": "willCh",
   "license": "ISC",
@@ -26,9 +27,11 @@
   "devDependencies": {
     "jest": "^29.2.2",
     "nodemon": "^2.0.20",
+    "standard": "^17.0.0",
     "supertest": "^6.3.1"
   },
   "eslintConfig": {
+    "extends": "./node_modules/standard/eslintrc.json",
     "env": {
       "jest": true
     }
